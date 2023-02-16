@@ -4,6 +4,7 @@ Crea una aplicación de buscador de películas
 API a usar
 https://www.omdbapi.com
 API_KEY: 4287ad07
+https://www.omdbapi.com/?apikey=4287ad07&s=Matrix
 
 Requeremientos:
 - Necesita mostrar un input para buscar la película y un botón para buscar.
