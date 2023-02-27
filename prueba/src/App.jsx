@@ -1,6 +1,7 @@
 import "./App.css";
 import { Movies } from "./components/movies";
 import { useMovies } from "./hooks/useMovies";
+
 import { useSearch } from "./hooks/useSearch";
 
 
@@ -25,15 +26,20 @@ function App() {
 
   
 
+
   return (
     <div className="page">
       <header>
         <h1>Buscador de películas</h1>
         <form className="form" onSubmit={handleSubmit}>
           <input
+
             name="query"
             value={search}
             onChange={handleChange} 
+
+            
+
             placeholder="Avengers, Star Wars, The Matrix..."
           />
           <button type="submit">Buscar</button>
