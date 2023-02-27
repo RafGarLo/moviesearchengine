@@ -1,18 +1,31 @@
 import "./App.css";
 import { Movies } from "./components/movies";
 import { useMovies } from "./hooks/useMovies";
-import { useRef } from "react";
+
+import { useSearch } from "./hooks/useSearch";
+
+
 
 function App() {
   const { movies: mappedMovies } = useMovies();
-  const inputRef = useRef();
+  
+  const { search, updateSearch, error } = useSearch()
+  
+
+  console.log("render");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const inputEl = inputRef.current;
-    const value = inputEl.value;
-    console.log(value);
+    console.log({ search });
   };
+
+  const handleChange = (event) => {
+    
+    updateSearch(event.target.value);
+  };
+
+  
+
 
   return (
     <div className="page">
@@ -20,11 +33,18 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className="form" onSubmit={handleSubmit}>
           <input
-            ref={inputRef}
+
+            name="query"
+            value={search}
+            onChange={handleChange} 
+
+            
+
             placeholder="Avengers, Star Wars, The Matrix..."
           />
           <button type="submit">Buscar</button>
         </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </header>
       <main>
         <Movies movies={mappedMovies} />
