@@ -1,7 +1,8 @@
-import responseMovies from '../mocks/with-results.json'
-import withoutResults from '../mocks/no-results.json'
 
-export function useMovies() {
+import { useState } from 'react';
+
+export function useMovies({ search }) {
+  const [responseMovies, setResponseMovies] = useState([]);
   const movies = responseMovies.Search;
 
   const mappedMovies = movies?.map((movie) => ({
@@ -10,6 +11,8 @@ export function useMovies() {
     year: movie.Year,
     poster: movie.Poster,
   }));
+
+  
 
   return { movies: mappedMovies }
 }
