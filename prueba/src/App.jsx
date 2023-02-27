@@ -7,16 +7,18 @@ import { useSearch } from "./hooks/useSearch";
 
 
 function App() {
-  const { movies: mappedMovies } = useMovies();
+  const { search, updateSearch, error } = useSearch();
   
-  const { search, updateSearch, error } = useSearch()
+  const { movies: mappedMovies, getMovies } = useMovies({ search });
+  
+  
   
 
   console.log("render");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ search });
+    getMovies()
   };
 
   const handleChange = (event) => {
