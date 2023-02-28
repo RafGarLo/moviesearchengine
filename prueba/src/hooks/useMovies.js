@@ -1,18 +1,26 @@
-
-import { useState } from 'react';
+import { fetchMovies } from "../services/fetchMovies";
+import { useState, useRef } from "react";
 
 export function useMovies({ search }) {
-  const [responseMovies, setResponseMovies] = useState([]);
-  const movies = responseMovies.Search;
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const previousSearch = useRef(search);
 
-  const mappedMovies = movies?.map((movie) => ({
-    id: movie.imbdID,
-    title: movie.Title,
-    year: movie.Year,
-    poster: movie.Poster,
-  }));
+  const getMovies = async () => {
+    if (search === previousSearch.current) return;
+    try {
+      setLoading(true);
+      setError(null);
+      previousSearch.current = search;
+      const newMovies = await fetchMovies({ search });
+      setMovies(newMovies);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  
-
-  return { movies: mappedMovies }
+  return { movies, getMovies, loading, error };
 }
