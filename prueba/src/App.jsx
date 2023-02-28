@@ -9,7 +9,7 @@ import { useSearch } from "./hooks/useSearch";
 function App() {
   const { search, updateSearch, error } = useSearch();
   
-  const { movies: mappedMovies, getMovies } = useMovies({ search });
+  const { movies, getMovies, loading } = useMovies({ search });
   
   
   
@@ -35,22 +35,16 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className="form" onSubmit={handleSubmit}>
           <input
-
             name="query"
             value={search}
-            onChange={handleChange} 
-
-            
-
+            onChange={handleChange}
             placeholder="Avengers, Star Wars, The Matrix..."
           />
           <button type="submit">Buscar</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </header>
-      <main>
-        <Movies movies={mappedMovies} />
-      </main>
+      <main>{loading ? <p>Cargando...</p> : <Movies movies={movies} />}</main>
     </div>
   );
 }
