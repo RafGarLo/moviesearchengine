@@ -3,26 +3,26 @@ import { Movies } from "./components/movies";
 import { useMovies } from "./hooks/useMovies";
 
 import { useSearch } from "./hooks/useSearch";
+import { useState } from 'react';
 
 
 
 function App() {
+  const [sort, setSort] = useState(false);
+  
   const { search, updateSearch, error } = useSearch();
-  
-  const { movies, getMovies, loading } = useMovies({ search });
-  
-  
-  
-
-  console.log("render");
+  const { movies, getMovies, loading } = useMovies({ search, sort });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    getMovies()
+    getMovies({ search })
   };
 
+  const handleSort = () => {
+    setSort(!sort)
+  }
+
   const handleChange = (event) => {
-    
     updateSearch(event.target.value);
   };
 
@@ -40,6 +40,7 @@ function App() {
             onChange={handleChange}
             placeholder="Avengers, Star Wars, The Matrix..."
           />
+          <input type='checkbox' onChange={handleSort} checked={sort} ></input>
           <button type="submit">Buscar</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
