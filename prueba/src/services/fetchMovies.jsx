@@ -10,12 +10,12 @@ export const fetchMovies = async ({ search }) => {
     
     const movies = json.Search;
 
-  return  movies?.map((movie) => ({
-    id: movie.imbdID,
+  return movies?.map((movie) => ({
+    id: movie.imdbID,
     title: movie.Title,
     year: movie.Year,
     poster: movie.Poster,
-  }))
+  }));
  } catch (e) {
     throw new Error('Error searching movies')
  }
